@@ -7,7 +7,8 @@ app.use(cors());
 app.use(express.json());
 
 // ✅ Connect to MongoDB
-mongoose.connect("mongodb://127.0.0.1:27017/restaurantDB")
+const MONGO_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/restaurantDB";
+mongoose.connect(MONGO_URI)
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
@@ -326,5 +327,5 @@ app.delete("/admin/takeaway-orders/:orderId", async (req, res) => {
 
 
 // ✅ Start the server
-const PORT = 5001;
+const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
